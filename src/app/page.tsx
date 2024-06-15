@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "~/server/db";
 
+export const dynamic = "force-dynamic";
 
 const mockURLs = [
   "https://medium.com/@jodiceluke/reflection-of-a-year-without-school-cc47b248a83e",
@@ -17,7 +18,6 @@ const  mockStories = mockURLs.map((url,index) =>({
 }))
 
 export default async function HomePage() {
-  
   const posts = await db.query.posts.findMany();
   
   console.log(posts);
