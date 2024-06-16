@@ -22,13 +22,18 @@ export const posts = createTable(
   "post",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    title: varchar("title", { length: 256 }).notNull(),
+    subtitle:varchar("title", { length: 512 }).notNull(),
+    storyURL: varchar("storyURL", { length: 1024 }).notNull(),
+    thumbnailURL: varchar("thumbnailURL", { length: 1024 }).notNull(),
+    postPublshedAt: timestamp("postPublshedAt", { withTimezone: true })
+      .notNull(), 
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updatedAt", { withTimezone: true }),
   },
   (example) => ({
-    nameIndex: index("name_idx").on(example.name),
+    titleIndex: index("title_idx").on(example.title),
   })
 );
