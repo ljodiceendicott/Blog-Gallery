@@ -19,7 +19,9 @@ type Posts = {
 }
 
 export default async function HomePage() {
-  const posts = await db.query.posts.findMany();
+  const posts = await db.query.posts.findMany({
+    orderBy:(model, {desc}) =>desc(model.id)
+  });
  
   //Live data in DB
   const Stories = posts.map((url, index) => ({
@@ -45,6 +47,16 @@ const mockStories = mockURLs.map((url, index) => ({
     <main>
       <div className="flex flex-wrap gap-3">
         {mockStories.map((story) => (
+          <div key={story.id} className="w-60 hover:text-gray-300">
+            <Link href={encodeURI(story.url)}>
+              <img src={story.img} />
+              <div className=" text-lg font-bold ">{story.title}</div>
+            </Link>
+            <div>{story.subtitle}</div>
+          </div>
+        ))}{" "}
+        {/* real data */}
+        {Stories.map((story) => (
           <div key={story.id} className="w-60 hover:text-gray-300">
             <Link href={encodeURI(story.url)}>
               <img src={story.img} />
