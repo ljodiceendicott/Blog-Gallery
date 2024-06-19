@@ -1,14 +1,22 @@
 import Link from "next/link";
 import { db } from "~/server/db";
 
+
 export const dynamic = "force-dynamic";
 
-import mockdata from "datascraping/test.json";
+import mockdata from "./test.json";
 
 const mockURLs = mockdata;
 
 const placeholderimg = "https://utfs.io/f/6784c48e-a263-4959-b162-126259a66773-a0ams3.png";
 
+
+type Posts = {
+  url : string;
+  title : string;
+  subtitle : string;
+  imgLink : string;
+}
 
 export default async function HomePage() {
   const posts = await db.query.posts.findMany();
@@ -33,21 +41,19 @@ const mockStories = mockURLs.map((url, index) => ({
 
 
 
-  console.log(posts);
-
   return (
     <main>
       <div className="flex flex-wrap gap-3">
         {mockStories.map((story) => (
-          <div key={story.id} className="w-60">
+          <div key={story.id} className="w-60 hover:text-gray-300">
             <Link href={encodeURI(story.url)}>
-              <img src={story.img}/> 
+              <img src={story.img} />
+              <div className=" text-lg font-bold ">{story.title}</div>
             </Link>
-            <div className=" font-bold text-lg">{story.title}</div>
             <div>{story.subtitle}</div>
           </div>
-        ))}  </div>
-      Hello Testing page
+        ))}{" "}
+      </div>
     </main>
   );
 }
