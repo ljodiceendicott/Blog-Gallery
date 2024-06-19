@@ -3,23 +3,36 @@ import { db } from "~/server/db";
 
 export const dynamic = "force-dynamic";
 
-const mockURLs = [
-  "https://medium.com/@jodiceluke/reflection-of-a-year-without-school-cc47b248a83e",
-  "https://medium.com/@jodiceluke/creativity-to-exe-cution-788fd75e551b",
-  "https://medium.com/@jodiceluke/the-super-power-of-online-online-interactions-prepare-for-remote-work-fa4bb55ce8a0"
-];
+import mockdata from "datascraping/test.json";
+
+const mockURLs = mockdata;
 
 const placeholderimg = "https://utfs.io/f/6784c48e-a263-4959-b162-126259a66773-a0ams3.png";
 
-const  mockStories = mockURLs.map((url,index) =>({
-  id: index+1,
-  url,
-  img: placeholderimg,
-}))
 
 export default async function HomePage() {
   const posts = await db.query.posts.findMany();
-  
+ 
+  //Live data in DB
+  const Stories = posts.map((url, index) => ({
+    id: index + 1,
+    url: url.storyURL,
+    title: url.title,
+    subtitle: url.subtitle,
+    img: placeholderimg,
+  }));
+
+  //testing to make sure the ui is working
+const mockStories = mockURLs.map((url, index) => ({
+  id: index + 1,
+  url: url.url,
+  title: url.title,
+  subtitle: url.subtitle,
+  img: placeholderimg,
+}));
+
+
+
   console.log(posts);
 
   return (
@@ -27,10 +40,11 @@ export default async function HomePage() {
       <div className="flex flex-wrap gap-3">
         {mockStories.map((story) => (
           <div key={story.id} className="w-60">
-            <Link href={story.url}>
+            <Link href={encodeURI(story.url)}>
               <img src={story.img}/> 
             </Link>
-            {story.id}
+            <div className=" font-bold text-lg">{story.title}</div>
+            <div>{story.subtitle}</div>
           </div>
         ))}  </div>
       Hello Testing page
