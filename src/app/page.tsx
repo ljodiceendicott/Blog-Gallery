@@ -38,25 +38,25 @@ const mockStories = mockURLs.map((url, index) => ({
   url: url.url,
   title: url.title,
   subtitle: url.subtitle,
-  img: placeholderimg,
+  // img: placeholderimg,
 }));
 
 
 
   return (
     <main>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-col space-y-5 pl-8">
         {mockStories.map((story) => (
-          <div key={story.id} className="w-60 hover:text-gray-300">
+          <div key={story.id} className="w-180 hover:text-gray-300">
             <Link href={encodeURI(story.url)}>
-              <img src={story.img} />
-              <div className=" text-lg font-bold ">{story.title}</div>
+             {/* <img src={story.img} /> */}
+              <div className=" text-lg font-bold w-100">{story.title}</div>
             </Link>
-            <div>{story.subtitle}</div>
+            <div className="">{story.subtitle}</div>
           </div>
         ))}{" "}
         {/* real data */}
-        {Stories.map((story) => (
+        {/* {Stories.map((story) => (
           <div key={story.id} className="w-60 hover:text-gray-300">
             <Link href={encodeURI(story.url)}>
               <img src={story.img} />
@@ -64,7 +64,7 @@ const mockStories = mockURLs.map((url, index) => ({
             </Link>
             <div>{story.subtitle}</div>
           </div>
-        ))}{" "}
+        ))}{" "} */}
       </div>
     </main>
   );

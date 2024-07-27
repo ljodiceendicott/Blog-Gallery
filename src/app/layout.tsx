@@ -10,10 +10,10 @@ export const metadata = {
 
 function TopNavigation() {
   return (
-    <nav className="flex items-center p-4 text-xl font-semibold justify-between">
+    <nav className="flex items-center p-4 pb-10 text-xl font-semibold justify-between">
       <div>Story Gallary</div>
 
-      <div>Sign in?</div>
+      {/* <div>Sign in?</div> */}
     </nav>
   );
 }
@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TopNavigation />
-        {children}
+       {children}
       </body>
     </html>
   );
